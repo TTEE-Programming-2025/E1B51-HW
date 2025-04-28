@@ -3,7 +3,7 @@
 int main(void)
 {
     int i,j,k,password;
-    char ch,key,tri,height;
+    char ch,key,deta,detb,height;
     printf("     ___\n");//6到26行個人風格畫面 
     printf("     \\ /\n");
     for (i=0;i<=3;i++)
@@ -40,18 +40,18 @@ int main(void)
 			printf("  ~~~~~~~~~~~~~~~~~~~~~~\n");
 			printf("請輸入:");
 			scanf("%s",&key);
-			if (key=='a'||key=='A')
+			if (key=='a'||key=='A')//偵測字元A、a 
 			{
 				system("CLS");
-				printf("輸入一個‘a’到‘n’的字元");
-				scanf("%s",&tri);
-				while (tri>'n'||tri<'a')
-				{
+				printf("輸入一個‘a’到‘n’的字元:");
+				scanf("%s",&deta);
+				while (deta>'n'||deta<'a')
+				{//a~n以外重新輸入 
 					printf("輸入錯誤請重新輸入:");
-					scanf("%s",&tri);
+					scanf("%s",&deta);
 				}
 
-				int numHeight = tri - 'a' + 1;
+				int numHeight = deta - 'a' + 1;//直角三角形 
   				for(i = 1; i <= numHeight; i++)
 				{
       				for(k = 0; k < numHeight - i; k++)
@@ -65,7 +65,23 @@ int main(void)
        				printf("\n");
 				}
 				system("pause");
+				system("CLS");//回到主選單 
+			}
+			if (key=='B'||key=='b')//偵測字元B、b 
+			{
 				system("CLS");
+				printf("輸入一個1~9的整數n:");
+				scanf("%d",&detb);
+				for (i=1;i<=detb;i++)//乘法表 
+				{
+					for (j=1;j<=detb;j++)
+					{
+						printf("%d*%d=%2d ",j,i,i*j);
+					}
+					printf("\n");
+				}
+				system("pause");
+				system("CLS");//回到主選單 
 			}
 		}
 	}
