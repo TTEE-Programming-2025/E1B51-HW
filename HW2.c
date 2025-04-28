@@ -26,4 +26,15 @@ int main(void)
 	printf("      V\n");
 	system("pause");
 	system("CLS");
+	printf("請輸入密碼(2025):");
+	scanf("%d",&password);
+	system("CLS");
+	if (password==2025)//判斷密碼
+	{//主選單 
+		printf("  ~~~~~~~~~~~~~~~~~~~~~~\n");
+		printf("  I  a.畫出直角三角形  I\n");
+		printf("  I  b.顯示乘法表      I\n");
+		printf("  I  c. 結束           I\n");
+		printf("  ~~~~~~~~~~~~~~~~~~~~~~\n");
+	}
 }
