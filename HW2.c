@@ -2,8 +2,8 @@
 #include <stdlib.h>
 int main(void)
 {
-    int i,j,k,password;
-    char ch,key,deta,detb,height,yn;
+    int i,j,k,password,wrong=0;
+    char key,deta,detb,height,yn;
     printf("     ___\n");//6到26行個人風格畫面 
     printf("     \\ /\n");
     for (i=0;i<=3;i++)
@@ -28,11 +28,20 @@ int main(void)
 	system("CLS");
 	printf("請輸入密碼(2025):");
 	scanf("%d",&password);
-	system("CLS");
-	if (password==2025)//判斷密碼
-	{//主選單 
-		while (1)
+	while (password!=2025)//判斷密碼 
+	{
+		wrong++;
+		if (wrong==3)
 		{
+			printf("錯誤三次!");
+			return 0;
+		}
+		printf("請輸入密碼(2025):");
+		scanf("%d",&password);
+	}
+	system("CLS");
+	while (1)
+		{	//主選單 
 			printf("  ~~~~~~~~~~~~~~~~~~~~~~\n");
 			printf("  I  a.畫出直角三角形  I\n");
 			printf("  I  b.顯示乘法表      I\n");
@@ -46,7 +55,7 @@ int main(void)
 				printf("輸入一個‘a’到‘n’的字元:");
 				scanf("%s",&deta);
 				while (deta>'n'||deta<'a')
-				{//a~n以外重新輸入 
+				{	//a~n以外重新輸入 
 					printf("輸入錯誤請重新輸入:");
 					scanf("%s",&deta);
 				}
@@ -83,25 +92,26 @@ int main(void)
 				system("pause");
 				system("CLS");//回到主選單 
 			}
-			if (key=='C'||key=='c')
+			if (key=='C'||key=='c')//偵測字元C、c 
 			{
 				printf("Continue? (y/n)");
 				scanf("%s",&yn);
-				while (yn!='Y'&&yn!='y'&&yn!='N'&&yn!='n')
+				while (yn!='Y'&&yn!='y'&&yn!='N'&&yn!='n')//判斷大小寫y,n 
 				{
 					printf("輸入錯誤請重新輸入:");
 					scanf("%s",&yn);					
 				}
-				if (yn=='y'||yn=='Y')
+				if (yn=='y'||yn=='Y')//Y回到主選單 
 				{
-					continue;
+					system("CLS");
+					continue; 
 				}
-				else if (yn=='n'||yn=='N')
+				else if (yn=='n'||yn=='N')//n結束 
 				{
 					return 0;
 				}
+				
 			}
 		}
-	}
 	
 }
