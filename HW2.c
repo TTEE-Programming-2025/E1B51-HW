@@ -3,7 +3,7 @@
 int main(void)
 {
     int i,j,k,password;
-    char ch,key,deta,detb,height;
+    char ch,key,deta,detb,height,yn;
     printf("     ___\n");//6到26行個人風格畫面 
     printf("     \\ /\n");
     for (i=0;i<=3;i++)
@@ -82,6 +82,24 @@ int main(void)
 				}
 				system("pause");
 				system("CLS");//回到主選單 
+			}
+			if (key=='C'||key=='c')
+			{
+				printf("Continue? (y/n)");
+				scanf("%s",&yn);
+				while (yn!='Y'&&yn!='y'&&yn!='N'&&yn!='n')
+				{
+					printf("輸入錯誤請重新輸入:");
+					scanf("%s",&yn);					
+				}
+				if (yn=='y'||yn=='Y')
+				{
+					continue;
+				}
+				else if (yn=='n'||yn=='N')
+				{
+					return 0;
+				}
 			}
 		}
 	}
