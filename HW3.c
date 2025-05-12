@@ -2,13 +2,21 @@
 #include <stdlib.h>
 int i,j,k,l,m,password,wrong=0,num;
 char key,seat[9][9],record[9][9],sat;
-int findseat(int num,char seat[9][9])
+void showseat(char seat[9][9])
 {
-	if (seat[0][0]!='-'&&seat[0][0]!='*')
+	printf("\\123456789\n");
+	for (l=0;l<9;l++)
 	{
-		printf("尚未有座位表\n");
-		return 0;
+		printf("%d",9-l);
+		for (m=0;m<9;m++)
+		{
+			printf("%c",seat[l][m]);
+		}
+		printf("\n");
 	}
+}
+void findseat(int num,char seat[9][9])
+{
 	while (1)
 	{
 		int randrow,randcol,found=1;
@@ -56,7 +64,6 @@ int findseat(int num,char seat[9][9])
 			}
 		} 
 	}
-	return 1;
 }
 void recordseat (char seat[9][9],char record[9][9])
 {
@@ -113,6 +120,17 @@ int main(void)
 	printf("歡迎!\n");
 	system("pause");
 	system("CLS");
+	for (i=0;i<9;i++)
+	{
+		for (j=0;j<9;j++)
+		{
+			seat[i][j]='-';
+		}
+	}
+	for (k=0;k<=10;k++)
+	{
+		seat[rand()%9][rand()%9]='*';
+	}
 	while (1)
 	{
 		printf("----------[Booking System]----------\n");
@@ -126,27 +144,7 @@ int main(void)
 		if (key=='a')//Detect character a
 		{
 			system("CLS");
-			for (i=0;i<9;i++)
-			{
-				for (j=0;j<9;j++)
-				{
-					seat[i][j]='-';
-				}
-			}
-			for (k=0;k<=10;k++)
-			{
-				seat[rand()%9][rand()%9]='*';
-			}
-			printf("\\123456789\n");
-			for (l=0;l<9;l++)
-			{
-				printf("%d",9-l);
-				for (m=0;m<9;m++)
-				{
-					printf("%c",seat[l][m]);
-				}
-				printf("\n");
-			}
+			showseat(seat);
 			system("pause");
 			system("CLS");
 		}
@@ -154,37 +152,20 @@ int main(void)
 		{
 			printf("需要幾個座位?(1~4)");
 			scanf("%d",&num);
-			if (findseat(num,seat)==0)
+			findseat(num,seat);
+			showseat(seat);
+			printf("是否滿意安排?(Y/N)");
+			scanf(" %c",&sat);
+			switch (sat)
 			{
-				system("pause");
-				system("CLS");
-			}
-			else
-			{
-				printf("\\123456789\n");
-				for (l=0;l<9;l++)
-				{
-					printf("%d",9-l);
-					for (m=0;m<9;m++)
-					{
-						printf("%c",seat[l][m]);
-					}
-					printf("\n");
-				}
-				printf("是否滿意安排?(Y/N)");
-				scanf(" %c",&sat);
-				switch (sat)
-				{
-					case 'Y':
-						recordseat(seat,record);
-						system("CLS");
-						break;
-					case 'N':
-						system("CLS");
-						break ;
-				}
-			}
-			
+				case 'Y':
+					recordseat(seat,record);
+					system("CLS");
+					break;
+				case 'N':
+					system("CLS");
+					break ;
+			}	
 		}
 	}
 }
