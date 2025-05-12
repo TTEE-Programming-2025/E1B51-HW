@@ -1,7 +1,77 @@
 #include <stdio.h>
 #include <stdlib.h>
-int i,j,k,l,m,password,wrong=0;
-char key,seat[9][9],record[9][9];
+int i,j,k,l,m,password,wrong=0,num;
+char key,seat[9][9],record[9][9],sat;
+int findseat(int num,char seat[9][9])
+{
+	if (seat[0][0]!='-'&&seat[0][0]!='*')
+	{
+		printf("尚未有座位表\n");
+		return 0;
+	}
+	while (1)
+	{
+		int randrow,randcol,found=1;
+		if (num==4)
+		{
+			randrow=rand()%8;
+			randcol=rand()%8;
+			for (i = 0; i < 2; i++)
+			{
+                if (seat[randrow][randcol + i] != '-'||seat[randrow][randcol + i] != '-')
+				{
+                    found = 0;
+                    break;
+                }
+            }
+            if (found)
+			{
+				for (j=0;j<2;j++)
+				{
+					seat[randrow][randcol+j]='@';
+					seat[randrow+1][randcol+j]='@';
+				}
+				break;
+			}
+		} 
+		else
+		{
+			randrow=rand()%9;
+			randcol=rand()%(9-num+1);
+			for (i=0;i<num;i++)
+			{
+				if (seat[randrow][randcol+i]!='-')
+				{
+					found=0;
+					break;
+				}
+			}
+			if (found)
+			{
+				for (j=0;j<num;j++)
+				{
+					seat[randrow][randcol+j]='@';
+				}
+				break;
+			}
+		} 
+	}
+	return 1;
+}
+void recordseat (char seat[9][9],char record[9][9])
+{
+	for (i=0;i<9;i++)
+	{
+		for (j=0;j<9;j++)
+		{
+			if (seat[i][j]=='@')
+			{
+				seat[i][j]='*';
+			}
+			record[i][j]=seat[i][j];
+		}
+	}
+}
 int main(void)
 {
 
@@ -79,10 +149,44 @@ int main(void)
 			}
 			system("pause");
 			system("CLS");
-		
 		}
-
+		if (key=='b')//Detect character b
+		{
+			printf("需要幾個座位?(1~4)");
+			scanf("%d",&num);
+			if (findseat(num,seat)==0)
+			{
+				system("pause");
+				system("CLS");
+			}
+			else
+			{
+				printf("\\123456789\n");
+				for (l=0;l<9;l++)
+				{
+					printf("%d",9-l);
+					for (m=0;m<9;m++)
+					{
+						printf("%c",seat[l][m]);
+					}
+					printf("\n");
+				}
+				printf("是否滿意安排?(Y/N)");
+				scanf(" %c",&sat);
+				switch (sat)
+				{
+					case 'Y':
+						recordseat(seat,record);
+						system("CLS");
+						break;
+					case 'N':
+						system("CLS");
+						break ;
+				}
+			}
+			
+		}
 	}
-	
-	
 }
+	
+	
