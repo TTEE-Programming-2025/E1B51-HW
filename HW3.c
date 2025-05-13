@@ -5,14 +5,15 @@ int i,j,k,l,m,password,wrong=0,num;
 char key,seat[9][9],record[9][9],sat;
 int sitc(char seat[9][9])
 {
-	int row,col;
+	int row,col,corr=1;
 	char sitnum[100];
 	printf("輸入座位:");
 	scanf("%s",&sitnum);
 	if (sitnum[1]!='-')
 	{
-		printf("格式錯誤!");
+		printf("格式錯誤!\n");
 		system("pause");
+		corr=0;
 		sitc(seat);
 	}
 	for (i=0;sitnum[i]!='\0';i+=2)
@@ -22,11 +23,13 @@ int sitc(char seat[9][9])
 			printf("%c",sitnum[i]);
 			printf("格式錯誤!\n");
 			system("pause");
+			corr=0;
 			sitc(seat);
 		}
 	} 
 	col=sitnum[2]-'0'-1;
 	row=9-sitnum[0]+'0';
+	if (corr){
 	if (seat[row][col]=='*')
 	{
 		printf("重位!\n");
@@ -37,7 +40,7 @@ int sitc(char seat[9][9])
 	{
 		seat[row][col]='@';
 	}
-
+}
 }
 void showseat(char seat[9][9])
 {
@@ -235,6 +238,27 @@ int main(void)
 			system("pause");
 			system("CLS");
 			recordseat(seat,record);
+		}
+		if (key=='d')
+		{
+			char yn;
+			printf("Continue? (y/n)");
+			scanf("%s",&yn);
+			while (yn!='y'&&yn!='n')
+			{
+				printf("輸入錯誤請重新輸入:");
+				scanf("%s",&yn);					
+			}
+				if (yn=='y')
+			{
+				system("CLS");
+				continue; 
+			}
+			else if (yn=='n')
+			{
+				return 0;
+			}
+				
 		}
 	}
 }
