@@ -1,7 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 int i,j,k,l,m,password,wrong=0,num;
 char key,seat[9][9],record[9][9],sat;
+int sitc(char seat[9][9])
+{
+	int row,col;
+	char sitnum[100];
+	printf("輸入座位:");
+	scanf("%s",&sitnum);
+	if (sitnum[1]!='-')
+	{
+		printf("格式錯誤!");
+		system("pause");
+		sitc(seat);
+	}
+	for (i=0;sitnum[i]!='\0';i+=2)
+	{
+		if (sitnum[i]<'1'||sitnum[i]>'9')
+		{
+			printf("%c",sitnum[i]);
+			printf("格式錯誤!\n");
+			system("pause");
+			sitc(seat);
+		}
+	} 
+	col=sitnum[2]-'0'-1;
+	row=9-sitnum[0]+'0';
+	if (seat[row][col]=='*')
+	{
+		printf("重位!\n");
+		system("pause");
+		sitc(seat);
+	}
+	else
+	{
+		seat[row][col]='@';
+	}
+
+}
 void showseat(char seat[9][9])
 {
 	printf("\\123456789\n");
@@ -81,7 +118,7 @@ void recordseat (char seat[9][9],char record[9][9])
 }
 int main(void)
 {
-
+	srand(time(NULL));
     printf("     ___\n");
     printf("     \\ /\n");
     for (i=0;i<=3;i++)
@@ -104,6 +141,17 @@ int main(void)
 	printf("      V\n");
 	system("pause");
 	system("CLS");
+	for (i=0;i<9;i++)
+	{
+		for (j=0;j<9;j++)
+		{
+			seat[i][j]='-';
+		}
+	}
+	for (k=0;k<=10;k++)
+	{
+		seat[rand()%9][rand()%9]='*';
+	}
 	printf("請輸入密碼(2025):");
 	scanf("%d",&password);
 	while (password!=2025)//Determine the password
@@ -120,17 +168,7 @@ int main(void)
 	printf("歡迎!\n");
 	system("pause");
 	system("CLS");
-	for (i=0;i<9;i++)
-	{
-		for (j=0;j<9;j++)
-		{
-			seat[i][j]='-';
-		}
-	}
-	for (k=0;k<=10;k++)
-	{
-		seat[rand()%9][rand()%9]='*';
-	}
+
 	while (1)
 	{
 		printf("----------[Booking System]----------\n");
@@ -141,31 +179,62 @@ int main(void)
 		printf("------------------------------------\n");
 		printf("請輸入:");
 		scanf("%s",&key);
-		if (key=='a')//Detect character a
+		if (key=='a')//part a
 		{
 			system("CLS");
 			showseat(seat);
 			system("pause");
 			system("CLS");
 		}
-		if (key=='b')//Detect character b
+		if (key=='b')//part b
 		{
+			system("CLS");
 			printf("需要幾個座位?(1~4)");
 			scanf("%d",&num);
-			findseat(num,seat);
-			showseat(seat);
-			printf("是否滿意安排?(Y/N)");
-			scanf(" %c",&sat);
-			switch (sat)
+			if (num>=1&&num<=4)
+			{ 
+				findseat(num,seat);
+				showseat(seat);
+				printf("是否滿意安排?(Y/N)");
+				scanf(" %c",&sat);
+				switch (sat)
+				{
+					case 'Y':
+						recordseat(seat,record);
+						system("CLS");
+						break;
+					case 'N':
+						system("CLS");
+						for (i=0;i<9;i++)
+						{
+							for (j=0;j<9;j++)
+							{
+								if (seat[i][j]=='@')
+								{
+									seat[i][j]='-';
+								}
+							}
+						}
+						break;
+				}
+			}
+			else 
 			{
-				case 'Y':
-					recordseat(seat,record);
-					system("CLS");
-					break;
-				case 'N':
-					system("CLS");
-					break ;
+				printf("請輸入正確範圍\n");
+				system("pause");
+				system("CLS");
 			}	
+		}
+		if (key=='c')
+		{
+			system("CLS");
+			showseat(seat);
+			sitc(seat);
+			system("CLS");
+			showseat(seat);
+			system("pause");
+			system("CLS");
+			recordseat(seat,record);
 		}
 	}
 }
