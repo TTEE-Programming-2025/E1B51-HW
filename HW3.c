@@ -2,21 +2,21 @@
 #include <stdlib.h>
 #include <time.h>
 int i,j,k,l,m,password,wrong=0,num;
-char key,seat[9][9],record[9][9],sat;
-int sitc(char seat[9][9])
+char key,seat[9][9],sat;
+int sitc(char seat[9][9])//Part C Seat Arrangement
 {
 	int row,col,corr=1;
 	char sitnum[100];
 	printf("輸入座位:");
 	scanf("%s",&sitnum);
-	if (sitnum[1]!='-')
+	if (sitnum[1]!='-')//determine -
 	{
 		printf("格式錯誤!\n");
 		system("pause");
 		corr=0;
 		sitc(seat);
 	}
-	for (i=0;sitnum[i]!='\0';i+=2)
+	for (i=0;sitnum[i]!='\0';i+=2)//determine x-y(x,y is number)
 	{
 		if (sitnum[i]<'1'||sitnum[i]>'9')
 		{
@@ -30,19 +30,19 @@ int sitc(char seat[9][9])
 	col=sitnum[2]-'0'-1;
 	row=9-sitnum[0]+'0';
 	if (corr){
-	if (seat[row][col]=='*')
+	if (seat[row][col]=='*')//determine duplicate seat
 	{
 		printf("重位!\n");
 		system("pause");
 		sitc(seat);
 	}
 	else
-	{
+	{//Mark selected seat
 		seat[row][col]='@';
 	}
 }
 }
-void showseat(char seat[9][9])
+void showseat(char seat[9][9])//Print out the seating chart
 {
 	printf("\\123456789\n");
 	for (l=0;l<9;l++)
@@ -55,17 +55,17 @@ void showseat(char seat[9][9])
 		printf("\n");
 	}
 }
-void findseat(int num,char seat[9][9])
+void findseat(int num,char seat[9][9])//Part B Seat Arrangement
 {
 	while (1)
 	{
 		int randrow,randcol,found=1;
-		if (num==4)
+		if (num==4)//seat=4
 		{
 			randrow=rand()%8;
 			randcol=rand()%8;
 			for (i = 0; i < 2; i++)
-			{
+			{//determine duplicate seat
                 if (seat[randrow][randcol + i] != '-'||seat[randrow][randcol + i] != '-')
 				{
                     found = 0;
@@ -73,7 +73,7 @@ void findseat(int num,char seat[9][9])
                 }
             }
             if (found)
-			{
+			{//Mark selected seat
 				for (j=0;j<2;j++)
 				{
 					seat[randrow][randcol+j]='@';
@@ -82,12 +82,12 @@ void findseat(int num,char seat[9][9])
 				break;
 			}
 		} 
-		else
+		else//seat=1~3
 		{
 			randrow=rand()%9;
 			randcol=rand()%(9-num+1);
 			for (i=0;i<num;i++)
-			{
+			{//determine duplicate seat
 				if (seat[randrow][randcol+i]!='-')
 				{
 					found=0;
@@ -95,7 +95,7 @@ void findseat(int num,char seat[9][9])
 				}
 			}
 			if (found)
-			{
+			{//Mark selected seat
 				for (j=0;j<num;j++)
 				{
 					seat[randrow][randcol+j]='@';
@@ -105,7 +105,7 @@ void findseat(int num,char seat[9][9])
 		} 
 	}
 }
-void recordseat (char seat[9][9],char record[9][9])
+void recordseat (char seat[9][9])//record seat
 {
 	for (i=0;i<9;i++)
 	{
@@ -115,14 +115,13 @@ void recordseat (char seat[9][9],char record[9][9])
 			{
 				seat[i][j]='*';
 			}
-			record[i][j]=seat[i][j];
 		}
 	}
 }
 int main(void)
 {
 	srand(time(NULL));
-    printf("     ___\n");
+    printf("     ___\n");//personal style page
     printf("     \\ /\n");
     for (i=0;i<=3;i++)
     {
@@ -173,7 +172,7 @@ int main(void)
 	system("CLS");
 
 	while (1)
-	{
+	{//menu
 		printf("----------[Booking System]----------\n");
 		printf("|  a. Available seats              |\n");
 		printf("|  b. Arrange for you              |\n");
@@ -194,7 +193,7 @@ int main(void)
 			system("CLS");
 			printf("需要幾個座位?(1~4)");
 			scanf("%d",&num);
-			if (num>=1&&num<=4)
+			if (num>=1&&num<=4)//seat range 1~4
 			{ 
 				findseat(num,seat);
 				showseat(seat);
@@ -203,7 +202,7 @@ int main(void)
 				switch (sat)
 				{
 					case 'Y':
-						recordseat(seat,record);
+						recordseat(seat);
 						system("CLS");
 						break;
 					case 'N':
@@ -228,7 +227,7 @@ int main(void)
 				system("CLS");
 			}	
 		}
-		if (key=='c')
+		if (key=='c')//part c
 		{
 			system("CLS");
 			showseat(seat);
@@ -237,9 +236,9 @@ int main(void)
 			showseat(seat);
 			system("pause");
 			system("CLS");
-			recordseat(seat,record);
+			recordseat(seat);
 		}
-		if (key=='d')
+		if (key=='d')//part d
 		{
 			char yn;
 			printf("Continue? (y/n)");
