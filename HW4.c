@@ -52,12 +52,13 @@ int main(void)
 	system("CLS");
 	struct student
 	{
-		char name[10];
-		char num[10];
+		char name[100];
+		char num[100];
 		int mscore;
 		int pscore;
 		int escore;
 	};
+	struct student data[ppl];
 	while (1)
 	{
 		printf("------------[Grade System]----------\n");
@@ -69,11 +70,12 @@ int main(void)
 		printf("------------------------------------\n");
 		printf("請輸入:");
 		scanf(" %c",&key);
-		if (key=='a');
+		if (key=='a')
 		{
 			system("CLS");
 			do
 			{
+				printf("%c",key);
 				printf("輸入5~10的整數:");
 				scanf("%d",&ppl);
 				system("CLS");
@@ -83,7 +85,6 @@ int main(void)
 				}
 			}
 			while (ppl>10||ppl<5);
-			struct student data[ppl];
 			for (i=0;i<ppl;i++)
 			{
 				printf("輸入第%d個學生的姓名:",i+1);
@@ -108,8 +109,20 @@ int main(void)
 				checkscore (data[i].escore);
 				system("CLS");
 			}
-			
 		}
+		if (key=='b')
+		{
+			system("CLS");
+			float avg[ppl];
+			printf ("姓名  學號     數學  物理  英文  平均\n");
+			for (i=0;i<ppl;i++)
+			{
+				avg[i]=(data[i].mscore+data[i].pscore+data[i].escore)/3;
+				printf("%s  %s  %d  %d  %d  %f\n",data[i].name,data[i].num,data[i].mscore,data[i].pscore,data[i].escore,avg[i]);
+			}
+			system("pause");
+			system("CLS");
+		} 
 	}
 	
 
