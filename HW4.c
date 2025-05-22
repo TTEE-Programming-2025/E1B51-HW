@@ -42,4 +42,19 @@ int main(void)
 	printf("Åwªï!\n");
 	system("pause");
 	system("CLS");
+	struct student
+	{
+		char name[10];
+		char num[10];
+		int mscore;
+		int pscore;
+		int escore;
+	};
+	printf("------------[Grade System]----------\n");
+	printf("| a. Enter student grades          |\n");
+	printf("| b. Display student grades        |\n");
+	printf("| c. Search for student grades     |\n");
+	printf("| d. Grade ranking                 |\n");
+	printf("| e. Exit system                   |\n");
+	printf("------------------------------------\n");
 }
