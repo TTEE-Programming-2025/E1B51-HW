@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-int i,j,k,password,wrong=0,num,ppl;
-char key,seat[9][9],sat;
+int i,j,k,password,wrong=1,num,ppl;
+char key,searchname[10];
+float avg[10];
 void checkscore(int *score)
 {
 	while (*score>100||*score<0)
@@ -76,7 +77,6 @@ int main(void)
 			system("CLS");
 			do
 			{
-				printf("%c",key);
 				printf("輸入5~10的整數:");
 				scanf("%d",&ppl);
 				system("CLS");
@@ -122,16 +122,38 @@ int main(void)
 		if (key=='b')
 		{
 			system("CLS");
-			float avg[ppl];
 			printf ("姓名  學號     數學  物理  英文  平均\n");
 			for (i=0;i<ppl;i++)
 			{
-				avg[i]=(data[i].mscore+data[i].pscore+data[i].escore)/3;
+				avg[i]=(data[i].mscore+data[i].pscore+data[i].escore)/3.0;
 				printf("%s  %s  %d  %d  %d  %.1f\n",data[i].name,data[i].num,data[i].mscore,data[i].pscore,data[i].escore,avg[i]);
 			}
 			system("pause");
 			system("CLS");
 		} 
+		if (key=='c')
+		{
+			system("CLS");
+			printf("輸入搜尋學生姓名:");
+			scanf("%s",searchname);
+			for (i=0;i<ppl;i++)
+			{
+				if (strcmp(searchname,data[i].name)==0)
+				{
+					wrong=0;
+					printf ("姓名  學號     數學  物理  英文  平均\n");
+					printf("%s  %s  %d  %d  %d  %.1f\n",data[i].name,data[i].num,data[i].mscore,data[i].pscore,data[i].escore,avg[i]);
+					system("pause");
+					system("CLS");
+				}
+			}
+			if (wrong)
+			{
+				printf("該學生不存在\n");
+				system("pause");
+				system("CLS");
+			}
+		}
 	}
 	
 
