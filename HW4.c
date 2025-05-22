@@ -1,7 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-int i,j,k,l,m,password,wrong=0,num;
+int i,j,password,wrong=0,num,ppl;
 char key,seat[9][9],sat;
+void checkscore(int score)
+{
+	while (score>100||score<0)
+	{
+		printf("輸入錯誤請再次輸入:");
+		scanf("%d",&score);
+	}
+}
 int main(void)
 {
     printf("     ___\n");//personal style page
@@ -50,11 +58,60 @@ int main(void)
 		int pscore;
 		int escore;
 	};
-	printf("------------[Grade System]----------\n");
-	printf("| a. Enter student grades          |\n");
-	printf("| b. Display student grades        |\n");
-	printf("| c. Search for student grades     |\n");
-	printf("| d. Grade ranking                 |\n");
-	printf("| e. Exit system                   |\n");
-	printf("------------------------------------\n");
+	while (1)
+	{
+		printf("------------[Grade System]----------\n");
+		printf("| a. Enter student grades          |\n");
+		printf("| b. Display student grades        |\n");
+		printf("| c. Search for student grades     |\n");
+		printf("| d. Grade ranking                 |\n");
+		printf("| e. Exit system                   |\n");
+		printf("------------------------------------\n");
+		printf("請輸入:");
+		scanf(" %c",&key);
+		if (key=='a');
+		{
+			system("CLS");
+			do
+			{
+				printf("輸入5~10的整數:");
+				scanf("%d",&ppl);
+				system("CLS");
+				if (ppl>10||ppl<5)
+				{
+					printf("輸入錯誤請再次輸入\n");
+				}
+			}
+			while (ppl>10||ppl<5);
+			struct student data[ppl];
+			for (i=0;i<ppl;i++)
+			{
+				printf("輸入第%d個學生的姓名:",i+1);
+				scanf("%s",&data[i].name);
+				printf("輸入第%d個學生的學號(6位整數):",i+1);
+				scanf("%s",&data[i].num);
+				for (j=0;data[i].num[j]!='\0';j++);
+				while (j!=6)
+				{
+					printf("輸入錯誤請再次輸入:");
+					scanf("%s",&data[i].num);
+					for (j=0;data[i].num[j]!='\0';j++);
+				}
+				printf("輸入第%d個學生的數學成績:",i+1);
+				scanf("%d",&data[i].mscore);
+				checkscore (data[i].mscore);
+				printf("輸入第%d個學生的物理成績:",i+1);
+				scanf("%d",&data[i].pscore);
+				checkscore (data[i].pscore);
+				printf("輸入第%d個學生的英文成績:",i+1);
+				scanf("%d",&data[i].escore);
+				checkscore (data[i].escore);
+				system("CLS");
+			}
+			
+		}
+	}
+	
+
+	
 }
