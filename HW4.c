@@ -12,6 +12,39 @@ struct student {
     int escore;
     float avg;
 };
+// d部分排序
+void sortByAverage(struct student data[], int ppl) {
+    struct student sorted[10];
+    
+    //複製原始資料
+    for (i = 0; i < ppl; i++) {
+        sorted[i] = data[i];
+    }
+
+    //排序
+    for (i = 0; i < ppl - 1; i++) {
+        for (j = 0; j < ppl - i - 1; j++) {
+            if (sorted[j].avg < sorted[j + 1].avg) {
+                struct student temp = sorted[j];
+                sorted[j] = sorted[j + 1];
+                sorted[j + 1] = temp;
+            }
+        }
+    }
+
+    // 顯示排序後成績
+    printf("名次  姓名    學號   數學  物理  英文  平均\n");
+    for (i = 0; i < ppl; i++) {
+        printf("%2d    %s  %s  %d  %d  %d  %.1f\n",
+               i + 1,
+               sorted[i].name,sorted[i].num,
+               sorted[i].mscore,sorted[i].pscore,
+               sorted[i].escore,sorted[i].avg);
+    }
+
+    system("pause");
+    system("CLS");
+}
 // 檢查成績是否合法
 void checkScore(int *score) {
     while (*score < 0 || *score > 100) {
@@ -80,7 +113,7 @@ int enterGrades(struct student data[]) {
 }
 // 顯示成績
 void displayGrades(struct student data[], int ppl) {
-    printf("姓名  學號     數學  物理  英文  平均\n");
+    printf("姓名  學號   數學  物理  英文  平均\n");
     for (i = 0; i < ppl; i++) {
         printf("%s  %s  %d  %d  %d  %.1f\n",
                data[i].name, data[i].num,
@@ -98,7 +131,7 @@ void searchStudent(struct student data[], int ppl) {
 
     for (i = 0; i < ppl; i++) {
         if (strcmp(searchname, data[i].name) == 0) {
-            printf("姓名  學號     數學  物理  英文  平均\n");
+            printf("姓名  學號   數學  物理  英文  平均\n");
             printf("%s  %s  %d  %d  %d  %.1f\n",
                    data[i].name, data[i].num,
                    data[i].mscore, data[i].pscore,
@@ -188,8 +221,9 @@ int main() {
         } else if (key == 'c') {
             system("CLS");
             searchStudent(data, ppl);
-        } else if (key == 'e') {
-            break;
+        } else if (key == 'd') {
+            system("CLS");
+   			sortByAverage(data, ppl);
         }
     }
     return 0;
