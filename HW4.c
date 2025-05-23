@@ -224,7 +224,23 @@ int main() {
         } else if (key == 'd') {
             system("CLS");
    			sortByAverage(data, ppl);
-        }
+        } else if (key == 'e') {
+        	system("CLS");
+        	char yn;
+        	do
+        	{
+        		printf("½T©wÂ÷¶}?(y/n)");
+				scanf(" %c",&yn);
+			}while (yn!='y'&&yn!='n');
+			if (yn=='n')
+			{
+				system("CLS");
+			}
+			else if (yn=='y')
+			{
+				break;
+			}
+		} 
     }
     return 0;
 }
